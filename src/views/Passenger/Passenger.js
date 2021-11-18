@@ -4,8 +4,23 @@ export default {
   name: 'Passengers',
   data() {
     return {
-      passenger: {},
-      dialogDelete: false
+      passengerData: {},
+      dialogDelete: false,
+      isEditable: false,
+      valid: true,
+      firstNameRules: [
+        v => !!v || 'First name is required',
+      ],
+      lastNameRules: [
+        v => !!v || 'Last name is required',
+      ],
+      emailRules: [
+        v => !!v || 'Email is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      phoneRules: [
+        v => !!v || 'Phone is required'
+      ]
     }
   },
   components: {
@@ -15,7 +30,7 @@ export default {
       const passengerId = this.$route.params.id
       $PassengerApi.getPassenger(passengerId)
         .then(response => {
-          this.passenger = response.data
+          this.passengerData = response.data
         })
     },
     onDeletePassenger() {
@@ -31,6 +46,14 @@ export default {
     closeDelete () {
       this.dialogDelete = false
     },
+    onEditPassenger() {
+      const passengerId = this.$route.params.id
+      this.isEditable = false
+      $PassengerApi.editPassenger(passengerId, this.passengerData)
+        // .then(() => {
+        //   this.getSinglePassenger()
+        // })
+    }
   },
   mounted() {
     this.getSinglePassenger()

@@ -13,8 +13,8 @@ class Passenger {
     addPassenger(payload) {
         return $axios.post("/passenger", payload)
     }
-    editPassenger(params) {
-        return $axios.patch("/passenger/" + params)
+    editPassenger(params, payload) {
+        return $axios.patch("/passenger/" + params, payload)
     }
     deletePassenger(params) {
         return $axios.delete("/passenger/" + params)

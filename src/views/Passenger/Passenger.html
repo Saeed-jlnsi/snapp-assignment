@@ -1,5 +1,5 @@
 <div>
-    {{passenger}}
+    {{passengerData}}
     <v-container>
         <v-row>
             <v-col>
@@ -13,9 +13,9 @@
                     Profile
                     </div>
                     <v-list-item-title class="text-h5 mb-1">
-                    Passenger ID: {{passenger.id}} 
+                    Passenger ID: {{passengerData.id}} 
                     </v-list-item-title>
-                    <v-list-item-subtitle>Email: {{passenger.email}}</v-list-item-subtitle>
+                    <v-list-item-subtitle>Email: {{passengerData.email}}</v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-avatar size="100">
@@ -26,10 +26,106 @@
                 </v-avatar>
                 
                 </v-list-item>
+                <v-card-text>
+                    <v-form
+                        ref="form"
+                        v-model="valid"
+                        lazy-validation
+                    >
+                        <v-row justify="end" class="mx-0">
+                            <v-fab-transition>
+                                <v-btn
+                                color="pink"
+                                dark
+                                fab
+                                @click="isEditable = !isEditable"
+                                >
+                                <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                            </v-fab-transition>
+                        </v-row>
+                        <v-row>
+                            <v-col 
+                                cols="12"
+                                sm="6"
+                            >
+                                <v-text-field
+                                    v-model="passengerData.first_name"
+                                    label="First Name"
+                                    :rules="firstNameRules"
+                                    :readonly="!isEditable"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                            >
+                                <v-text-field
+                                    v-model="passengerData.last_name"
+                                    label="Last Name"
+                                    :rules="lastNameRules"
+                                    :readonly="!isEditable"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                            >
+                                <v-text-field
+                                    v-model="passengerData.email"
+                                    label="Email"
+                                    :rules="emailRules"
+                                    :readonly="!isEditable"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                            >
+                                <v-text-field
+                                    v-model="passengerData.phone"
+                                    label="Phone"
+                                    :rules="phoneRules"
+                                    :readonly="!isEditable"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                            >
+                                <v-text-field
+                                    v-model="passengerData.gender"
+                                    label="Gender"
+                                    :readonly="!isEditable"
+                                ></v-text-field>
 
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                            >
+                                <v-text-field
+                                    v-model="passengerData.number_masked"
+                                    label="Number Masked"
+                                    :readonly="!isEditable"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-textarea
+                                    name="notes"
+                                    label="notes"
+                                    v-model="passengerData.notes"
+                                    hint="max 100 words"
+                                    :readonly="!isEditable"
+                                ></v-textarea>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-card-text>
                 <v-card-actions>
                     <v-btn
                         color="#08de6f"
+                        @click="onEditPassenger"
                     >
                         <v-icon dark>
                             mdi-pencil
