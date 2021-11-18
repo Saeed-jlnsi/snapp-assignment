@@ -9,17 +9,67 @@
         <v-row>
           <v-col cols="12" sm="6">
             <v-text-field
-              label="search..."
+              v-model="searchObject.first_name"
+              label="search by first name"
               filled
               rounded
               dense
-            ></v-text-field>
+            >
+            <v-icon
+              slot="append"
+              color="#ff01a7"
+            >
+              mdi-account
+            </v-icon>
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="searchObject.last_name"
+              label="search by last name"
+              filled
+              rounded
+              dense
+            >
+            <v-icon
+              slot="append"
+              color="#ff01a7"
+            >
+              mdi-account
+            </v-icon>
+          </v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="searchObject.email"
+              label="search by email"
+              filled
+              rounded
+              dense
+            >
+              <v-icon
+                slot="append"
+                color="#ff01a7"
+              >
+                mdi-email
+              </v-icon>
+            </v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
             <v-switch
-              @change="onSwitchFilter"
+              v-model="searchObject.banned"
+              color="#ff01a7"
               label="Filter Banned Passengers"
             ></v-switch>
+          </v-col>
+          <v-col>
+            <v-btn
+              color="#08de6f"
+              @click="onSearch"
+              class="d-block mx-auto"
+            >
+              Search Passenger
+            </v-btn>
           </v-col>
         </v-row>
       </v-expansion-panel-content>

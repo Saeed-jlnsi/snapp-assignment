@@ -17,13 +17,6 @@ export default {
     }
   },
   methods: {
-    onFilterPassengersHandler(filterStatus) {
-      if(filterStatus) {
-        this.passengersData = this.passengersData.filter(passenger => passenger.banned)
-      } else {
-        this.getPassengersData()
-      }
-    },
     onChangeLimitHandler(perPage) {
       this.limitData = perPage
       this.getPassengersData(this.limitData)
@@ -39,6 +32,28 @@ export default {
           this.passengersData = result
         })
     },
+    onSearchPassengersHandler(searchData) {
+      const query = {}
+      Object.keys(searchData).forEach(key =>  {
+        if(searchData[key]) {
+          if(key !== "banned") {
+            query[key] = {contains: searchData[key]}
+          } else {
+            query[key] = searchData[key]
+          }
+        }
+      })
+      if(Object.entries(query).length > 0) {
+        this.searchPassenger(JSON.stringify(query))
+      }
+    },
+    searchPassenger(query) {
+      $PassengerApi.searchPassenger(query)
+        .then(response => response.data.items)
+          .then(result => {
+            this.passengersData = result
+          })
+    }
   },
   mounted() {
     this.getPassengersData();

@@ -8,7 +8,7 @@ class Passenger {
         return $axios.get("/passenger/" + params)
     }
     searchPassenger(query) {
-        return $axios.get("/passenger?" + query)
+        return $axios.get("/passenger?where=" + query)
     }
     addPassenger(payload) {
         return $axios.post("/passenger", payload)
