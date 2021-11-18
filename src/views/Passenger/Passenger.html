@@ -1,5 +1,4 @@
 <div>
-    {{passengerData}}
     <v-container>
         <v-row>
             <v-col>
@@ -72,17 +71,6 @@
                                 sm="6"
                             >
                                 <v-text-field
-                                    v-model="passengerData.email"
-                                    label="Email"
-                                    :rules="emailRules"
-                                    :readonly="!isEditable"
-                                ></v-text-field>
-                            </v-col>
-                            <v-col
-                                cols="12"
-                                sm="6"
-                            >
-                                <v-text-field
                                     v-model="passengerData.phone"
                                     label="Phone"
                                     :rules="phoneRules"
@@ -110,7 +98,7 @@
                                     :readonly="!isEditable"
                                 ></v-text-field>
                             </v-col>
-                            <v-col>
+                            <v-col cols="12">
                                 <v-textarea
                                     name="notes"
                                     label="notes"

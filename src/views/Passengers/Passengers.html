@@ -1,8 +1,10 @@
 <div>
     <v-container>
-        <!-- <v-row>
-            <SearchPassengersComponent />
-        </v-row> -->
+        <v-row>
+            <v-col>
+                <SearchPassengersComponent @onFilterPassengers="onFilterPassengersHandler" />
+            </v-col>
+        </v-row>
         <v-row>
             <v-col>
                 <PassengersTableComponent

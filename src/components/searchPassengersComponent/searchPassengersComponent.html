@@ -1,5 +1,29 @@
 
 <section class="search-passengers-component">
-  <h1>search-passengers-component Component</h1>
+  <v-expansion-panels v-model="panel">
+    <v-expansion-panel>
+      <v-expansion-panel-header>
+        <h1>Search & Filter Passenger</h1>
+      </v-expansion-panel-header>
+      <v-expansion-panel-content>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              label="search..."
+              filled
+              rounded
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-switch
+              @change="onSwitchFilter"
+              label="Filter Banned Passengers"
+            ></v-switch>
+          </v-col>
+        </v-row>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+  </v-expansion-panels>
 </section>
 

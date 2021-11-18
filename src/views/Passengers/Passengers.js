@@ -12,19 +12,28 @@ export default {
   },
   data() {
     return {
-      passengersData: []
+      passengersData: [],
+      limitData: 10,
     }
   },
   methods: {
+    onFilterPassengersHandler(filterStatus) {
+      if(filterStatus) {
+        this.passengersData = this.passengersData.filter(passenger => passenger.banned)
+      } else {
+        this.getPassengersData()
+      }
+    },
     onChangeLimitHandler(perPage) {
-      this.getPassengersData(perPage)
+      this.limitData = perPage
+      this.getPassengersData(this.limitData)
     },
     onAddPassengerHanlder(passenger) {
       $PassengerApi.addPassenger(passenger)
         .then(() => this.getPassengersData())
     },
-    getPassengersData(limit=10) {
-      $PassengerApi.getPassengersList(limit)
+    getPassengersData() {
+      $PassengerApi.getPassengersList(this.limitData)
         .then(response => response.data.items)
         .then(result => {
           this.passengersData = result

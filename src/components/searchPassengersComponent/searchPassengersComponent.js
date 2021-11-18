@@ -5,7 +5,7 @@ export default {
   props: [],
   data () {
     return {
-
+      panel: 0
     }
   },
   computed: {
@@ -15,7 +15,9 @@ export default {
 
   },
   methods: {
-
+    onSwitchFilter(status) {
+      this.$emit('onFilterPassengers', status)
+    }
   }
 }
 
