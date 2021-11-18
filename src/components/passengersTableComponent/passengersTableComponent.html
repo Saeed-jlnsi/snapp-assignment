@@ -5,6 +5,8 @@
     :items="passengers"
     sort-by="balanc"
     class="elevation-1"
+    :items-per-page="itemsPerPage"
+    @update:items-per-page="onChangePerPage($event)"
   >
     <template v-slot:top>
       <v-toolbar
@@ -141,14 +143,14 @@
         mdi-delete
       </v-icon>
     </template>
-    <template v-slot:no-data>
+    <!-- <template v-slot:no-data>
       <v-btn
         color="primary"
-        @click="initialize"
+        @click=""
       >
         Reset
       </v-btn>
-    </template>
+    </template> -->
   </v-data-table>
 </section>
 

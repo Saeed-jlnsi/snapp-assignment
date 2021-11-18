@@ -1,3 +1,4 @@
+import $PassengerApi from "../../services/api/passenger"
 
 export default {
   name: 'passengers-table-component',
@@ -12,6 +13,7 @@ export default {
     return {
       dialog: false,
       dialogDelete: false,
+      itemsPerPage: 10,
       headers: [
         {
           text: 'First Name',
@@ -40,8 +42,14 @@ export default {
         {
           text: 'Balance ($)',
           align: 'start',
-          sortable: false,
+          sortable: true,
           value: 'balance',
+        },
+        {
+          text: 'Ride Status',
+          align: 'start',
+          sortable: false,
+          value: 'ride_status',
         },
         {
           text: 'Banned',
@@ -52,7 +60,7 @@ export default {
         {
           text: 'Registration Time',
           align: 'start',
-          sortable: false,
+          sortable: true,
           value: 'createdAt',
         },
         { text: 'Actions', value: 'actions', sortable: false },
@@ -80,17 +88,23 @@ export default {
   },
 
   created () {
-    this.initialize()
-  },
-  mounted() {
-    this.passengers = this.passengersList
+    this.getPassengersData();
   },
 
   methods: {
-    initialize () {
-      this.passengers = []
+    onChangePerPage (perPageItem) {
+      this.getPassengersData(perPageItem)
     },
-
+    getPassengersData(limit = this.itemsPerPage) {
+      $PassengerApi.getPassengersList(limit)
+        .then(response => response.data.items)
+        .then(result => {
+          if(result.length === 1) {
+            this.$router.replace("/passenger")
+          }
+          this.passengers = result
+        })
+    },
     editItem (item) {
       this.editedIndex = this.passengers.indexOf(item)
       this.editedItem = Object.assign({}, item)
