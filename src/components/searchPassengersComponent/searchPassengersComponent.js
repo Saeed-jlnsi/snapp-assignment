@@ -28,6 +28,15 @@ export default {
   methods: {
     onSearch() {
       this.$emit('onSearchPassengers', this.searchObject)
+    },
+    onResetSearch() {
+      this.searchObject = Object.assign({}, {
+        first_name: "",
+        last_name: "",
+        email: "",
+        banned: false
+      })
+      this.$emit('onResetSearchPassengers')
     }
   }
 }

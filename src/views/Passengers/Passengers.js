@@ -51,7 +51,11 @@ export default {
       $PassengerApi.searchPassenger(query)
         .then(response => response.data.items)
           .then(result => {
-            this.passengersData = result
+            if(result.length === 1) {
+              this.$router.replace(`/passenger/${result[0].id}`)
+            } else {
+              this.passengersData = result
+            }
           })
     }
   },
