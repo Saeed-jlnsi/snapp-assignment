@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Passengers from '../views/Passengers/index.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +9,7 @@ const routes = [
     path: '/',
     name: 'Passengers',
     redirect: '/passengers',
-    component: () => import(/* webpackChunkName: "passengers" */ '../views/Passengers/index.vue')
+    component: Passengers
   },
   {
     path: '/passengers',
