@@ -24,7 +24,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="#ff01a7"
               dark
               class="mb-2"
               v-bind="attrs"
@@ -80,14 +80,14 @@
                 ></v-textarea>
                 <v-btn
                   :disabled="!valid"
-                  color="success"
+                  color="#08de6f"
                   class="mr-4"
                   @click="onAddPassenger"
                 >
                   Add Passenger
                 </v-btn>
                 <v-btn
-                  color="error"
+                  color="#ff01a7"
                   class="mr-4"
                   @click="close"
                 >
@@ -101,7 +101,7 @@
     </template>
     <template v-slot:item.actions="{ item }">
       <v-btn
-        color="success"
+        color="#08de6f"
         dark
         link 
         :to="`/passenger/${item.id}`"
