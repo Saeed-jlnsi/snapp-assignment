@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Passengers from '../views/Passengers/Passengers.vue'
 
 Vue.use(VueRouter)
 
@@ -9,12 +8,12 @@ const routes = [
     path: '/',
     name: 'Passengers',
     redirect: '/passengers',
-    component: Passengers
+    component: () => import(/* webpackChunkName: "passengers" */ '../views/Passengers/index.vue')
   },
   {
     path: '/passengers',
     name: 'Passengers',
-    component: () => import(/* webpackChunkName: "passengers" */ '../views/Passengers/Passengers.vue')
+    component: () => import(/* webpackChunkName: "passengers" */ '../views/Passengers/index.vue')
   },
   {
     path: '/Passenger',
@@ -22,7 +21,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "passenger" */ '../views/Passenger/Passenger.vue')
+    component: () => import(/* webpackChunkName: "passenger" */ '../views/Passenger/index.vue')
   }
 ]
 
