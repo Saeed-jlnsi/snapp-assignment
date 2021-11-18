@@ -1,15 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Passengers from '../views/Passengers/index.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Passengers',
     redirect: '/passengers',
-    component: Passengers
   },
   {
     path: '/passengers',
@@ -17,7 +14,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "passengers" */ '../views/Passengers/index.vue')
   },
   {
-    path: '/Passenger',
+    path: '/Passenger/:id',
     name: 'Passenger',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

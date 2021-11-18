@@ -1,5 +1,3 @@
-import $PassengerApi from "../../services/api/passenger"
-
 export default {
   name: 'passengers-table-component',
   components: {},
@@ -12,7 +10,6 @@ export default {
   data() {
     return {
       dialog: false,
-      dialogDelete: false,
       itemsPerPage: 10,
       headers: [
         {
@@ -66,16 +63,39 @@ export default {
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       passengers: [],
-      editedIndex: -1,
-      editedItem: {},
-      defaultItem: {},
+      passenger: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "",
+        number_masked: "",
+        note: ""
+      },
+      defaultData: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "",
+        number_masked: "",
+        note: ""
+      },
+      valid: true,
+      firstNameRules: [
+        v => !!v || 'First name is required',
+      ],
+      lastNameRules: [
+        v => !!v || 'Last name is required',
+      ],
+      emailRules: [
+        v => !!v || 'Email is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      phoneRules: [
+        v => !!v || 'Phone is required'
+      ]
     } 
-  },
-
-  computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'New Passenger' : 'Edit Passenger'
-    },
   },
 
   watch: {
@@ -86,65 +106,21 @@ export default {
       val || this.closeDelete()
     },
   },
-
-  created () {
-    this.getPassengersData();
-  },
-
   methods: {
     onChangePerPage (perPageItem) {
-      this.getPassengersData(perPageItem)
+      this.$emit("onChangeLimit", perPageItem)
     },
-    getPassengersData(limit = this.itemsPerPage) {
-      $PassengerApi.getPassengersList(limit)
-        .then(response => response.data.items)
-        .then(result => {
-          if(result.length === 1) {
-            this.$router.replace("/passenger")
-          }
-          this.passengers = result
-        })
+    onAddPassenger() {
+      if(this.$refs.form.validate()) {
+        this.$emit("onAddPassenger", this.passenger)
+        this.close()
+      }
     },
-    editItem (item) {
-      this.editedIndex = this.passengers.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
-
-    deleteItem (item) {
-      this.editedIndex = this.passengers.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
-    },
-
-    deleteItemConfirm () {
-      this.passengers.splice(this.editedIndex, 1)
-      this.closeDelete()
-    },
-
     close () {
       this.dialog = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
+        this.passenger = Object.assign({}, this.defaultData)
       })
-    },
-
-    closeDelete () {
-      this.dialogDelete = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
-    },
-
-    save () {
-      if (this.editedIndex > -1) {
-        Object.assign(this.passengers[this.editedIndex], this.editedItem)
-      } else {
-        this.passengers.push(this.editedItem)
-      }
-      this.close()
     },
   },
 }

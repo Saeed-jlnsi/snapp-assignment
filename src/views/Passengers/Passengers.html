@@ -5,7 +5,11 @@
         </v-row> -->
         <v-row>
             <v-col>
-                <PassengersTableComponent/>
+                <PassengersTableComponent
+                    :passengersList="passengersData"
+                    @onChangeLimit="onChangeLimitHandler"
+                    @onAddPassenger="onAddPassengerHanlder"
+                />
             </v-col>
         </v-row>
     </v-container>
