@@ -10,8 +10,22 @@ export default {
     PassengersTableComponent,
     SearchPassengersComponent
   },
+  data() {
+    return {
+      passengersData: []
+    }
+  },
+  methods: {
+    getPassengersData() {
+      $PassengerApi.getPassengersList(10)
+        .then(response => response.data.items)
+        .then(passengers => {
+          this.passengersData = passengers
+        })
+    }
+  },
   mounted() {
-      $PassengerApi.getPassengersList(10).then(response => console.log(response))
+    this.getPassengersData();  
   }
 }
 

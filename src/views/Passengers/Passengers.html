@@ -1,4 +1,15 @@
 <div>
-    <SearchPassengersComponent></SearchPassengersComponent>
-    <PassengersTableComponent></PassengersTableComponent>
+    <v-container>
+        <!-- <v-row>
+            <SearchPassengersComponent />
+        </v-row> -->
+        <v-row>
+            <v-col>
+                <PassengersTableComponent
+                    v-if="passengersData.length > 0"
+                    :passengersList="passengersData"
+                />
+            </v-col>
+        </v-row>
+    </v-container>
 </div>
