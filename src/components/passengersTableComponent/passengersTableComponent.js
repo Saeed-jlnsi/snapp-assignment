@@ -117,6 +117,7 @@ export default {
       }
     },
     close () {
+      this.$refs.form.resetValidation()
       this.dialog = false
       this.$nextTick(() => {
         this.passenger = Object.assign({}, this.defaultData)
