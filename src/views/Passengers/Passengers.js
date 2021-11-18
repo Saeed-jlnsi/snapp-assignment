@@ -1,7 +1,7 @@
 import PassengersTableComponent from "@/components/passengersTableComponent/index.vue"
 import SearchPassengersComponent from "@/components/searchPassengersComponent/index.vue"
 
-import $PassengerApi from "../../services/api/passenger"
+import $PassengerApi from "@/services/api/passenger"
 
 export default {
   name: 'Passengers',
