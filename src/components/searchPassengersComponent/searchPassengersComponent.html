@@ -9,7 +9,7 @@
         <v-row>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="searchObject.first_name"
+              v-model="searchData.first_name"
               label="search by first name"
               filled
               rounded
@@ -25,7 +25,7 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="searchObject.last_name"
+              v-model="searchData.last_name"
               label="search by last name"
               filled
               rounded
@@ -41,7 +41,7 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="searchObject.email"
+              v-model="searchData.email"
               label="search by email"
               filled
               rounded
@@ -57,7 +57,7 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-switch
-              v-model="searchObject.banned"
+              v-model="searchData.banned"
               color="#ff01a7"
               label="Filter Banned Passengers"
             ></v-switch>

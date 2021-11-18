@@ -5,7 +5,7 @@ export default {
   data () {
     return {
       panel: 0,
-      searchObject: {
+      searchData: {
         first_name: "",
         last_name: "",
         email: "",
@@ -27,16 +27,26 @@ export default {
   },
   methods: {
     onSearch() {
-      this.$emit('onSearchPassengers', this.searchObject)
+      let query = []
+      for(let key in this.searchData) {
+        if(this.searchData[key]) {
+          query[key] = this.searchData[key]
+        }
+      }
+      if(Object.entries(query).length > 0) {
+        this.$router.replace({path:"/passengers", query:query})
+      }
     },
     onResetSearch() {
-      this.searchObject = Object.assign({}, {
+      this.searchData = Object.assign({}, {
         first_name: "",
         last_name: "",
         email: "",
         banned: false
       })
-      this.$emit('onResetSearchPassengers')
+      if(Object.entries(this.$route.query).length > 0) {
+        this.$router.replace("/passengers")
+      }
     }
   }
 }

@@ -16,6 +16,19 @@ export default {
       limitData: 10,
     }
   },
+  watch: {
+    "$route.query": {
+      deep: true,
+      immediate: true,
+      handler(newVal) {
+        if(Object.entries(newVal).length > 0) {
+          this.searchPassenger();
+        } else {
+          this.getPassengersData()
+        }
+      }
+    }
+  },
   methods: {
     onChangeLimitHandler(perPage) {
       this.limitData = perPage
@@ -32,23 +45,17 @@ export default {
           this.passengersData = result
         })
     },
-    onSearchPassengersHandler(searchData) {
+    searchPassenger() {
       const query = {}
-      Object.keys(searchData).forEach(key =>  {
-        if(searchData[key]) {
-          if(key !== "banned") {
-            query[key] = {contains: searchData[key]}
-          } else {
-            query[key] = searchData[key]
-          }
+      Object.keys(this.$route.query).forEach(key =>  {
+        if(key !== "banned") {
+          query[key] = {contains: this.$route.query[key]}
+        } else {
+          query[key] = JSON.parse(this.$route.query[key])
         }
       })
-      if(Object.entries(query).length > 0) {
-        this.searchPassenger(JSON.stringify(query))
-      }
-    },
-    searchPassenger(query) {
-      $PassengerApi.searchPassenger(query)
+      console.log(query)
+      $PassengerApi.searchPassenger(JSON.stringify(query))
         .then(response => response.data.items)
           .then(result => {
             if(result.length === 1) {
@@ -59,9 +66,6 @@ export default {
           })
     }
   },
-  mounted() {
-    this.getPassengersData();
-  }
 }
 
 
